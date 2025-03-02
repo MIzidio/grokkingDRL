@@ -1,6 +1,4 @@
-import numpy as np
-
-P = {
+PWalkSeven = {
     0: {
         0: [(1.0, 0, 0.0, True)],
         1: [(1.0, 0, 0.0, True)]
@@ -62,24 +60,6 @@ P = {
 }
 
 LEFT, RIGHT = range(2)
-pi = lambda s: {
+piWalkSeven = lambda s: {
     0:LEFT, 1:LEFT, 2:LEFT, 3:LEFT, 4:LEFT, 5:LEFT, 6:LEFT
 }[s]
-
-def policy_evaluation(pi, P, gamma=1.0, theta=1e-10):
-    prev_V = np.random.rand(len(P))
-
-    while True:
-        V = np.random.rand(len(P))
-
-        for s in range(len(P)):
-            for prob, next_state, reward, done in P[s][pi(s)]:
-                V[s] += prob * (reward + gamma * prev_V[next_state] * (not done))
-        if (np.max(np.abs(prev_V - V)) < theta):
-            break
-        prev_V = V.copy()
-
-    return prev_V
-
-V = policy_evaluation(pi, P)
-print(V)
