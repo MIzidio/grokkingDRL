@@ -1,15 +1,21 @@
-# import numpy as np
+import numpy as np
+from polices import PWalkSeven, piWalkSeven
+from police_evaluation import policy_evaluation
 
-# def policy_improvement(V, P, gamma=1.0):
-#     Q = np.zeros(len(P), len(P[0]))
+V = policy_evaluation(piWalkSeven, PWalkSeven)
 
-#     for s in range(len(P)):
-#         for a in range(len(P[0])):
-#             for prob, next_state, reward, done in P[s][a]:
-#                 Q[s][a] = prob * (reward + gamma * V[next_state] * (not done))
+def policy_improvement(V, P, gamma=1.0):
+    Q = np.zeros((len(P), len(P[0])))
 
-#     new_pi = lambda s: {s for s in enumerate(np.argmax(Q, axis=1))}[s]
+    for s in range(len(P)):
+        for a in range(len(P[s])):
+            for prob, next_state, reward, done in P[s][a]:
+                Q[s][a] += prob * (reward + gamma * V[next_state] * (not done))
 
-#     return new_pi
+    new_pi = {s:a for s, a in enumerate(np.argmax(Q, axis=1))}
 
-# Q
+    return new_pi
+
+Q = policy_improvement(V, PWalkSeven)
+
+new_V = policy_evaluation(Q, PWalkSeven)
