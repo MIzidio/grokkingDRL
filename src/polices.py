@@ -60,6 +60,6 @@ PWalkSeven = {
 }
 
 LEFT, RIGHT = range(2)
-piWalkSeven = lambda s: {
+piWalkSeven = {
     0:LEFT, 1:LEFT, 2:LEFT, 3:LEFT, 4:LEFT, 5:LEFT, 6:LEFT
-}[s]
+}
