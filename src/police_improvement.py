@@ -12,9 +12,9 @@ def policy_improvement(V, P, gamma=1.0):
             for prob, next_state, reward, done in P[s][a]:
                 Q[s][a] += prob * (reward + gamma * V[next_state] * (not done))
 
-    new_pi = {s:a for s, a in enumerate(np.argmax(Q, axis=1))}
+    pi = {s:a for s, a in enumerate(np.argmax(Q, axis=1))}
 
-    return new_pi
+    return pi
 
 Q = policy_improvement(V, PWalkSeven)
 

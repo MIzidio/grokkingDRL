@@ -2,17 +2,17 @@ import numpy as np
 from polices import PWalkSeven, piWalkSeven
 
 def policy_evaluation(pi, P, gamma=1.0, theta=1e-10):
-    prev_V = np.random.rand(len(P))
+    V = np.random.rand(len(P))
 
     while True:
-        V = np.zeros(len(P))
+        new_V = np.zeros(len(P))
 
         for s in range(len(P)):
             for prob, next_state, reward, done in P[s][pi[s]]:
-                V[s] += prob * (reward + gamma * prev_V[next_state] * (not done))
-        if (np.max(np.abs(prev_V - V)) < theta):
+                new_V[s] += prob * (reward + gamma * V[next_state] * (not done))
+        if (np.max(np.abs(new_V - V)) < theta):
             break
-        prev_V = V.copy()
+        V = new_V
 
-    return prev_V
+    return V
 

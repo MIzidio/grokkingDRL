@@ -10,11 +10,12 @@ def police_iteraction(P, gamma=1.0, theta=1e-10):
 
     while True:
 
-        old_pi = {s:pi[s] for s in range(len(P))}
         V = policy_evaluation(pi, P, gamma, theta)
-        pi = policy_improvement(V, P, gamma)
+        new_pi = policy_improvement(V, P, gamma)
 
-        if old_pi == {s:pi[s] for s in range(len(P))}:
+        if new_pi == pi:
             break
+
+        pi = new_pi
 
     return V, pi

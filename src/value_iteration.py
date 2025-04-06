@@ -12,12 +12,14 @@ def value_iteration(P, gamma=1.0, theta=1e-10):
                 for prob, next_state, reward, done in P[s][a]:
                     Q[s][a] += prob * (reward + V[next_state] * gamma * (not done))
 
-        if np.max(np.abs(V - np.max(Q, axis=1))) < theta:
+        new_V = np.max(Q, axis=1)
+
+        if np.max(np.abs(V - new_V)) < theta:
             break
 
-        V = np.max(Q, axis=1)
+        V = new_V
 
-    pi = {s:a for s, a in enumerate(np.argmax(Q, axis=1))}
+    pi = {s:a for s, a in enumerate(V)}
 
     return V, pi
 
