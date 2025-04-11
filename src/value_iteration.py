@@ -1,5 +1,9 @@
 import numpy as np
 from polices import PWalkSeven
+import gymnasium as gym
+
+# env = gym.make("BanditWalk-v0")
+gym.pprint_registry()
 
 def value_iteration(P, gamma=1.0, theta=1e-10):
     V = np.random.rand(len(P))
@@ -23,8 +27,8 @@ def value_iteration(P, gamma=1.0, theta=1e-10):
 
     return V, pi
 
-[V, pi] = value_iteration(PWalkSeven)
-print(V)
-print(pi)
+# [V, pi] = value_iteration(PWalkSeven)
+# print(V)
+# print(pi)
 
         
